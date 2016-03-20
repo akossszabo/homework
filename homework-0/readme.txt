@@ -1,0 +1,1 @@
+nulladik hazifeladatom
