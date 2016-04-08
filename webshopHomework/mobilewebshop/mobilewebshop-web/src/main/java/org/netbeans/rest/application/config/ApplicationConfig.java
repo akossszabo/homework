@@ -29,7 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.mycompany.service.CartRESTService.class);
+        resources.add(com.mycompany.service.HelloREST.class);
         resources.add(com.mycompany.service.InventoryRESTService.class);
         resources.add(com.mycompany.service.UserRESTService.class);
     }

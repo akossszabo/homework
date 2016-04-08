@@ -1,9 +1,9 @@
 package com.mycompany.service;
 import com.mycompany.ee.dto.UserDTO;
 import com.mycompany.ee.service.UserManagementService;
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -18,29 +18,30 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-@Stateless
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class UserRESTService {
+public class UserRESTService implements Serializable{
     
     @EJB
     UserManagementService userManagementService;
     
     @POST
     @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
     public UserDTO addUser(UserDTO user) {
         return userManagementService.addUser(user);
     }
     
     @DELETE
     @Path("/{username}")
+    @Consumes(MediaType.APPLICATION_JSON)
     public UserDTO removeUser(@PathParam("username") String username) {
         return userManagementService.removeUser(username);
     }
 
     @PUT
     @Path("/{username}")
+    @Consumes(MediaType.APPLICATION_JSON)
     public UserDTO editUser(@PathParam("username") String username, UserDTO user) {
         if (!user.getUsername().equals(username)) {
             throw new IllegalArgumentException("Username error");
@@ -56,12 +57,14 @@ public class UserRESTService {
     }
     
     @GET
-    public Collection<UserDTO> getUsers(){
-        return userManagementService.getUsers().values();
+    //@Produces(MediaType.APPLICATION_JSON)
+    public List<UserDTO> getUsers(){
+        return userManagementService.getUsers();
     }    
     
    @POST
    @Path("/login")
+  // @Produces(MediaType.APPLICATION_JSON)
    public boolean login(@Context HttpServletRequest request,@QueryParam("username") String username, @QueryParam("password") String password){   
         UserDTO user = userManagementService.getUser(username);
         if(user.getPassword().equals(password)){

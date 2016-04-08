@@ -1,11 +1,11 @@
 package com.mycompany.ee.service;
 
 import com.mycompany.ee.dto.UserDTO;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.LocalBean;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
@@ -13,16 +13,14 @@ import javax.ejb.Startup;
 
 @Singleton
 @Startup
-@LocalBean
-
 public class UserManagementService {
     
-    private final Map <String, UserDTO> users = new HashMap<>();
+    private final Map<String,UserDTO> users = new HashMap<>();
     
     @PostConstruct
     private void init() {
-        users.put("adminUser",new UserDTO("adminUser","Asd12+",LocalDate.now(),true));
-        users.put("userUser",new UserDTO("userUser","Asd12+",LocalDate.now(),false));
+        users.put("admin",new UserDTO("admin","Asd12+","2000-05-20","2010-05-10"));
+        users.put("user",new UserDTO("user","Asd12+","2000-05-20","2010-05-10"));
     }
     
     @Lock(LockType.WRITE)
@@ -36,8 +34,9 @@ public class UserManagementService {
         return users.remove(username);
     }
 
-    public Map<String, UserDTO> getUsers() {
-        return users;
+    public List<UserDTO> getUsers() {
+        List<UserDTO> us = new ArrayList<>(users.values());
+        return us;
     }
     @Lock(LockType.WRITE)
     public UserDTO editUser(UserDTO user){

@@ -8,6 +8,9 @@ public class MobileDTO {
     private int price;
     private int piece;
 
+    public MobileDTO(){
+        
+    }
     public MobileDTO(String id,String type,String manufacturer, int price, int piece){
         this.id=id;
         this.type=type;
@@ -15,6 +18,7 @@ public class MobileDTO {
         this.price = price;
         this.piece = piece;
     }
+    
     
     public String getId() {
         return id;

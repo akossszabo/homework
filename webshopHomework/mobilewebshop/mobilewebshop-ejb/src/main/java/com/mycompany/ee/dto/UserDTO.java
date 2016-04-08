@@ -1,6 +1,7 @@
 package com.mycompany.ee.dto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -28,15 +29,16 @@ public class UserDTO {
     private LocalDate registrationDate;
     private boolean admin;
     private List<MobileDTO> cart;
-
+    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public UserDTO(){
     }
     
-    public UserDTO(String username,String password, LocalDate registrationDate, boolean admin){
+    public UserDTO(String username,String password,String dateOfBirth, String registrationDate){
         this.username = username;
         this.password=password;
-        this.registrationDate = registrationDate;
-        this.admin=admin;
+        this.dateOfBirth = LocalDate.parse(dateOfBirth, dtf);
+        this.registrationDate = LocalDate.parse(registrationDate, dtf);
+        this.setAdmin();
     }
     
     
@@ -92,8 +94,8 @@ public class UserDTO {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setAdmin() {
+        admin = "admin".equals(this.getUsername());
     }
 
     public List<MobileDTO> getCart() {
