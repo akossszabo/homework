@@ -25,21 +25,21 @@ public class InventoryService {
     
     @PostConstruct
     public void init(){
-        mobiles.add(new MobileDTO("iphone 6s","apple",100,3));
-        mobiles.add(new MobileDTO("galaxy s6","samsung",120,12));
-        mobiles.add(new MobileDTO("ascend p7","huawei",200,5));
-        mobiles.add(new MobileDTO("nexus","google",100,0));
+        mobiles.add(new MobileDTO(UUID.randomUUID().toString(),"iphone 6s","apple",100,3));
+        mobiles.add(new MobileDTO(UUID.randomUUID().toString(),"galaxy s6","samsung",120,12));
+        mobiles.add(new MobileDTO(UUID.randomUUID().toString(),"ascend p7","huawei",200,5));
+        mobiles.add(new MobileDTO(UUID.randomUUID().toString(),"nexus","google",100,0));
     }
      
     @Lock(LockType.WRITE)
-    public void addMobile(MobileDTO mobile){
+    public MobileDTO addMobile(MobileDTO mobile){
         for(MobileDTO m: mobiles){
             if(m.equals(mobile)){
                 throw new BadRequestException("Already exist phone with this ID");
             }
         }
-        mobile.setId(UUID.randomUUID().toString());
         mobiles.add(mobile);
+        return mobile;
     }
     
     @Lock(LockType.WRITE)

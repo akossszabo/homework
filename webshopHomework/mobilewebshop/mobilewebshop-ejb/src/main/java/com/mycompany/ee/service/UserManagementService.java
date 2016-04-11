@@ -24,8 +24,12 @@ public class UserManagementService {
     
     @PostConstruct
     private void init() {
-        users.put("admin",new UserDTO("admin","Asd12+",LocalDate.now()));
-        users.put("user",new UserDTO("user","Asd12+",LocalDate.now()));
+        UserDTO adminUser = new UserDTO("admin","Asd12+",LocalDate.now());
+        adminUser.setAdmin(true);
+        UserDTO userUser = new UserDTO("user","Asd12+",LocalDate.now());
+        userUser.setAdmin(false);
+        users.put(adminUser.getUsername(),adminUser);
+        users.put(userUser.getUsername(),userUser);
     }
     
     @Lock(LockType.WRITE)

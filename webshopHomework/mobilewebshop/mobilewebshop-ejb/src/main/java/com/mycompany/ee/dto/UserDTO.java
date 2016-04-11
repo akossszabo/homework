@@ -36,26 +36,26 @@ public class UserDTO {
     @NotNull
     private LocalDate registrationDate;
     private boolean admin;
-    private List<MobileDTO> cart;
 
     public UserDTO(){
     }
-    
-    public UserDTO(String username,String password,LocalDate dateOfBirth, LocalDate registrationDate){
+
+    public UserDTO(String username, String password, String firstname, String lastname, LocalDate dateOfBirth, LocalDate registrationDate, boolean admin) {
         this.username = username;
-        this.password=password;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.registrationDate = registrationDate;
-        this.setAdmin();
+        this.admin = admin;
     }
-    public UserDTO(String username,String password, LocalDate registrationDate){
-        this.username = username;
-        this.password=password;
+    
+      public UserDTO(String userName, String password, LocalDate registrationDate) {
+        this.username = userName;
+        this.password = password;
         this.registrationDate = registrationDate;
-        this.setAdmin();
     }
-    
-    
+
     public String getUsername() {
         return username;
     }
@@ -108,29 +108,20 @@ public class UserDTO {
         return admin;
     }
 
-    public void setAdmin() {
-        admin = "admin".equals(this.getUsername());
-    }
-
-    public List<MobileDTO> getCart() {
-        return cart;
-    }
-
-    public void setCart(List<MobileDTO> cart) {
-        this.cart = cart;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.username);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.firstname);
-        hash = 97 * hash + Objects.hashCode(this.lastname);
-        hash = 97 * hash + Objects.hashCode(this.dateOfBirth);
-        hash = 97 * hash + Objects.hashCode(this.registrationDate);
-        hash = 97 * hash + (this.admin ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.cart);
+        int hash = 3;
+        hash = 43 * hash + Objects.hashCode(this.username);
+        hash = 43 * hash + Objects.hashCode(this.password);
+        hash = 43 * hash + Objects.hashCode(this.firstname);
+        hash = 43 * hash + Objects.hashCode(this.lastname);
+        hash = 43 * hash + Objects.hashCode(this.dateOfBirth);
+        hash = 43 * hash + Objects.hashCode(this.registrationDate);
+        hash = 43 * hash + (this.admin ? 1 : 0);
         return hash;
     }
 
@@ -167,12 +158,8 @@ public class UserDTO {
         if (!Objects.equals(this.registrationDate, other.registrationDate)) {
             return false;
         }
-        if (!Objects.equals(this.cart, other.cart)) {
-            return false;
-        }
         return true;
     }
-    
-    
-    
+
+   
 }

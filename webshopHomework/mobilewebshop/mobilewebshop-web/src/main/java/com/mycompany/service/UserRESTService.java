@@ -21,7 +21,6 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
-@BeanValidation
 public class UserRESTService{
     public static final String USER = "user";
     
@@ -60,7 +59,11 @@ public class UserRESTService{
     @GET
     @Path("/{username}")
     public UserDTO getUser(@PathParam("username") String username){
-        return userManagementService.getUser(username);
+        if(userManagementService.getUser(username) != null){
+            return userManagementService.getUser(username);
+        }else{
+            throw new BadRequestException("User not ");
+        }
     }
     
     @GET

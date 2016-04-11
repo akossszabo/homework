@@ -25,12 +25,12 @@ public class MobileDTO {
     public MobileDTO(){
         
     }
-    public MobileDTO(String type,String manufacturer, int price, int piece){
+    public MobileDTO(String id,String type,String manufacturer, int price, int piece){
+        this.id = id;
         this.type=type;
         this.manufacturer = manufacturer;
         this.price = price;
         this.piece = piece;
-        this.setId(UUID.randomUUID().toString());
     }
     
     

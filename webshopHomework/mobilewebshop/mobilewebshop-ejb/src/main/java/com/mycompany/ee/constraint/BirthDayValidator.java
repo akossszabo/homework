@@ -11,14 +11,12 @@ public class BirthDayValidator implements ConstraintValidator<BirthDayConstraint
     public void initialize(BirthDayConstraint constraintAnnotation) {
     }
 
-    @Override
-    public boolean isValid(UserDTO user, ConstraintValidatorContext context) {
-        if(user.getDateOfBirth()!= null){
-            if(user.getDateOfBirth().isBefore(user.getRegistrationDate())){
-                return true;
-            }
-        }
-        return false;
-    }
+   @Override
+   public boolean isValid(UserDTO user, ConstraintValidatorContext context) {
+       if(user.getDateOfBirth()!= null){
+           return user.getDateOfBirth().isBefore(user.getRegistrationDate());
+       }
+       return true;
+   }
     
 }

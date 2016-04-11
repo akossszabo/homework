@@ -4,9 +4,12 @@ import com.mycompany.ee.dto.MobileDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
 import javax.ejb.Remove;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.ejb.StatefulTimeout;
+import javax.inject.Inject;
 
 @Stateful
 @StatefulTimeout(value = 200, unit = TimeUnit.SECONDS)
@@ -14,6 +17,11 @@ public class CartService {
     
     private final List<MobileDTO> products = new ArrayList<>();
     
+    @Resource
+    private SessionContext context;
+    
+    @Inject
+    private InventoryService inventoryService;
     
     public List<MobileDTO> getProducts(){
         return products;
@@ -26,7 +34,9 @@ public class CartService {
     
     @Remove
     public void checkout(){
-        //products.clear();
+        products.stream().forEach(inventoryService::buyMobile);
+        products.clear();
+        products.clear();
     }
     
     

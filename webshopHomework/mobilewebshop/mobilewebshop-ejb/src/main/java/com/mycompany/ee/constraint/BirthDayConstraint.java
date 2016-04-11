@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface BirthDayConstraint {
 
-    String message() default "{BirthDay.message}";
+    String message() default "{User's birthday should be earlier than registration date}";
 
     Class<?>[] groups() default {};
 
