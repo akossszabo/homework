@@ -1,9 +1,11 @@
 package com.mycompany.service;
+
 import com.mycompany.ee.dto.UserDTO;
+import com.mycompany.ee.exception.BadRequestException;
+import com.mycompany.ee.interceptor.BeanValidation;
 import com.mycompany.ee.service.UserManagementService;
-import java.io.Serializable;
 import java.util.List;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -14,19 +16,21 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
-public class UserRESTService implements Serializable{
+@BeanValidation
+public class UserRESTService{
+    public static final String USER = "user";
     
-    @EJB
-    UserManagementService userManagementService;
+    @Inject
+    private UserManagementService userManagementService;
     
     @POST
     @Path("/")
+    @BeanValidation
     @Consumes(MediaType.APPLICATION_JSON)
     public UserDTO addUser(UserDTO user) {
         return userManagementService.addUser(user);
@@ -36,17 +40,20 @@ public class UserRESTService implements Serializable{
     @Path("/{username}")
     @Consumes(MediaType.APPLICATION_JSON)
     public UserDTO removeUser(@PathParam("username") String username) {
+        if(username == null){
+            throw new BadRequestException("No such user");
+        }
         return userManagementService.removeUser(username);
     }
 
     @PUT
     @Path("/{username}")
+    @BeanValidation
     @Consumes(MediaType.APPLICATION_JSON)
     public UserDTO editUser(@PathParam("username") String username, UserDTO user) {
         if (!user.getUsername().equals(username)) {
-            throw new IllegalArgumentException("Username error");
+            throw new BadRequestException("Username is not equals with username in JSON");
         }
-
         return userManagementService.editUser(user);
     }
     
@@ -57,29 +64,33 @@ public class UserRESTService implements Serializable{
     }
     
     @GET
-    //@Produces(MediaType.APPLICATION_JSON)
+    @Path("/")
     public List<UserDTO> getUsers(){
         return userManagementService.getUsers();
     }    
     
    @POST
    @Path("/login")
-  // @Produces(MediaType.APPLICATION_JSON)
-   public boolean login(@Context HttpServletRequest request,@QueryParam("username") String username, @QueryParam("password") String password){   
-        UserDTO user = userManagementService.getUser(username);
-        if(user.getPassword().equals(password)){
-            HttpSession session = request.getSession(true);
+   @Consumes(MediaType.APPLICATION_JSON)
+   public UserDTO login(@Context HttpServletRequest request, UserDTO user){ 
+        HttpSession session = request.getSession(true);
+        session.setMaxInactiveInterval(2000);
+        UserDTO userStored = userManagementService.getUser(user.getUsername());
+        if(userStored != null && userStored.getPassword().equals(user.getPassword())){
                 session.setMaxInactiveInterval(2000);
-                session.setAttribute("user", user);
-                return true;
+                session.setAttribute(USER, user.getUsername());
+                return userStored;
             }
-        return false;
+        session.invalidate();
+        return user;
     }
+   @POST
    @Path("/logout")
-   public boolean logout(@Context HttpServletRequest request){
+   public UserDTO logout(@Context HttpServletRequest request){
        HttpSession session = request.getSession(true);
+       
        session.invalidate();
-       return true;
+       return userManagementService.getUser(USER);
        
    }
     
