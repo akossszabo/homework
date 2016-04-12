@@ -2,7 +2,6 @@ package com.mycompany.ee.dto;
 
 import com.mycompany.ee.annotation.Validate;
 import java.util.Objects;
-import java.util.UUID;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -23,7 +22,7 @@ public class MobileDTO {
     private int piece;
 
     public MobileDTO(){
-        
+        //Empty constructor
     }
     public MobileDTO(String id,String type,String manufacturer, int price, int piece){
         this.id = id;

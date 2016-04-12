@@ -32,9 +32,9 @@ public class ApplicationConfig extends Application {
         resources.add(com.mycompany.ee.exceptionmapper.BadRequestExceptionMapper.class);
         resources.add(com.mycompany.ee.exceptionmapper.GeneralExceptionMapper.class);
         resources.add(com.mycompany.ee.exceptionmapper.ValidationExceptionMapper.class);
-        resources.add(com.mycompany.service.CartRESTService.class);
-        resources.add(com.mycompany.service.InventoryRESTService.class);
-        resources.add(com.mycompany.service.UserRESTService.class);
+        resources.add(com.mycompany.rest.CartRESTService.class);
+        resources.add(com.mycompany.rest.InventoryRESTService.class);
+        resources.add(com.mycompany.rest.UserRESTService.class);
     }
     
 }

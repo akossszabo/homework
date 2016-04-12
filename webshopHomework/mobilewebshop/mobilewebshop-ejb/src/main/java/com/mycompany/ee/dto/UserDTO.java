@@ -2,12 +2,12 @@ package com.mycompany.ee.dto;
 
 import com.mycompany.ee.annotation.Validate;
 import com.mycompany.ee.constraint.BirthDayConstraint;
+import com.mycompany.ee.constraint.BirthDayInPastConstraint;
 import com.mycompany.ee.dateformatter.DateFormatter;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -28,9 +28,12 @@ public class UserDTO {
     @Pattern(regexp =".*[=+<>.,].*")
     })
     private String password;
+    
     private String firstname;
     private String lastname;
-    @XmlJavaTypeAdapter(DateFormatter.class)    
+    
+    @BirthDayInPastConstraint
+    @XmlJavaTypeAdapter(DateFormatter.class)
     private LocalDate dateOfBirth;
     @XmlJavaTypeAdapter(DateFormatter.class)
     @NotNull
@@ -38,6 +41,7 @@ public class UserDTO {
     private boolean admin;
 
     public UserDTO(){
+        //Empty constructor
     }
 
     public UserDTO(String username, String password, String firstname, String lastname, LocalDate dateOfBirth, LocalDate registrationDate, boolean admin) {
