@@ -45,6 +45,7 @@ public class MobileDTOtest {
         List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
         Assert.assertEquals("xy",violations.get(0).getInvalidValue());
+        Assert.assertEquals(m.getClass(),violations.get(0).getRootBeanClass());
     }
     
     @Test

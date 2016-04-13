@@ -17,9 +17,6 @@ public class CartService {
     
     private final List<MobileDTO> products = new ArrayList<>();
     
-    @Resource
-    private SessionContext context;
-    
     @Inject
     private InventoryService inventoryService;
     
