@@ -1,0 +1,75 @@
+
+  http://localhost:8080/sza-mobilewebshop-web/webresources/users/
+  POST -- addUser()
+  {
+      "admin": false,
+      "password": "Asd123+",
+      "registrationDate": "2010-02-11",
+      "username": "janos"
+  }
+
+http://localhost:8080/sza-mobilewebshop-web/webresources/users/janos
+  PUT --editUser()
+  {
+    "admin": false,
+    "password": "Asd1234+",
+    "registrationDate": "2010-02-11",
+    "username": "janos"
+  }
+
+  http://localhost:8080/sza-mobilewebshop-web/webresources/users/
+  DELETE -removeUser()
+
+  
+getUser()
+  http://localhost:8080/sza-mobilewebshop-web/webresources/users/janos
+  GET
+
+getUsers()
+  http://localhost:8080/sza-mobilewebshop-web/webresources/users
+  GET
+
+login()
+  http://localhost:8080/sza-mobilewebshop-web/webresources/users/login
+  POST
+  {
+  	"password": "Asd12+",
+	"username": "admin"
+  }
+
+http://localhost:8080/sza-mobilewebshop-web/webresources/users/logout
+POST--logout() login után.
+
+CartService:
+
+
+addToCart()
+  http://localhost:8080/sza-mobilewebshop-web/webresources/cart/
+  POST
+  {
+    "id": "3d795a20-49f4-47e2-90bd-9995e5516363",
+    "manufacturer": "Huawei",
+    "type": "Ascend p7"
+  }
+checkout() 
+  http://localhost:8080/sza-mobilewebshop-web/webresources/cart/checkout
+  GET
+
+InventoryRESTService:
+
+http://localhost:8080/sza-mobilewebshop-web/webresources/mobiles/
+  POST --addMobile() -Ha adminnal vaggyunk bejelentkezve, egyébként nincs hozzá jogosultságunk
+  {
+    "id": "09961f4d-9c18-4b77-b6bb-80f192920a8e",
+    "manufacturer": "Nokia",
+    "piece": 2,
+    "price": 100,
+    "type": "3310"
+  }
+
+getMobiles()
+  http://localhost:8080/sza-mobilewebshop-web/webresources/mobiles
+  GET
+
+
+  
