@@ -1,22 +1,12 @@
 package com.mycompany.sza.entities;
 
 import java.io.Serializable;
-import java.util.UUID;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
 
 
-@Entity
+
 @Embeddable
 public class Address implements Serializable {
-  
-    @Id
-    private Long id;
     private String city;
      private String state;
      private String country;
@@ -30,16 +20,7 @@ public class Address implements Serializable {
     }
 
     public Address() {
-    }
-
-    
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        //empty constructor
     }
 
     public String getCity() {
@@ -74,8 +55,4 @@ public class Address implements Serializable {
         this.street = street;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" + "id=" + id + ", city=" + city + ", state=" + state + ", country=" + country + ", street=" + street + '}';
-    } 
 }

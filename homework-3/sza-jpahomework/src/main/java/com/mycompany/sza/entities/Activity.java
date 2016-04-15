@@ -11,6 +11,7 @@ public class Activity {
     @Column(length = 100)
     protected String description;
     public Activity() {
+        //empty constructor
     }
 
     public String getDescription() {
