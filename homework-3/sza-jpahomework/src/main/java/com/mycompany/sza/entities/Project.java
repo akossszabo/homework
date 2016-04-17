@@ -19,8 +19,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Project.findWebShopbyName",
             query = "Select p.description FROM Project p WHERE p.name = :webshopName "),
-    @NamedQuery(name = "Project.countOfEngineers",
-            query = "Select COUNT(p.engineers) FROM Project p WHERE p.name = 'NetBank Project'"),
+    @NamedQuery(name = "Project.findProjectbyPlace",
+            query = "Select p.name FROM Project p WHERE p.place = :place "),
     @NamedQuery(name ="Project.findByManager",
             query = "Select p.name FROM Project p WHERE p.projectManager.name ='Git Áron' ")
 })

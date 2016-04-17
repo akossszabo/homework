@@ -16,7 +16,12 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "SoftwareEngineer.countOfProjects",
             query = "SELECT COUNT(en1.projects) FROM SoftwareEngineer en1"),
     @NamedQuery(name = "SoftwareEngineer.findByLanguage",
-            query = "SELECT en FROM SoftwareEngineer en WHERE en.programmingLanguage = :language")
+            query = "SELECT en FROM SoftwareEngineer en WHERE en.programmingLanguage = :language"),
+    @NamedQuery(name = "SoftwareEngineer.name",
+            query= "Select s.name FROM SoftwareEngineer s"),
+    @NamedQuery(name = "SoftwareEngineer.nameAndId",
+            query = "Select s.name , s.id FROM SoftwareEngineer s")
+    
 })
 public class SoftwareEngineer extends Person{
     @Enumerated(EnumType.STRING)

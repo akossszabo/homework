@@ -14,6 +14,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.logging.Logger;
+import javax.persistence.Query;
 
 public class Main {
 
@@ -51,7 +52,7 @@ public class Main {
 
         ProjectManager pm1 = new ProjectManager();
         pm1.setName("Git Áron");
-
+        pm1.setAddress(ad1);
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(en1);
@@ -59,7 +60,7 @@ public class Main {
         em.persist(project1);
         em.persist(project2);
         em.persist(pm1);
-        tx.commit();
+        
 
         List<Project> projects = new ArrayList<>();
 
@@ -74,12 +75,6 @@ public class Main {
         project1.setEngineers(engineers);
         en1.setProjects(Arrays.asList(project2));
         en2.setProjects(projects);
-        tx.begin();
-        em.persist(en1);
-        em.persist(en2);
-        em.persist(project1);
-        em.persist(project2);
-        em.persist(pm1);
         tx.commit();
 
         //Query-k lefuttatása
@@ -104,6 +99,20 @@ public class Main {
         TypedQuery<String> findByManager = em.createNamedQuery(
                 "Project.findByManager", String.class);
         LOG.info("Project Manager Git Áron's projects: " + findByManager.getResultList().toString());
+        
+        tx.commit();
+        
+        tx.begin();
+        TypedQuery<String> findName = em.createNamedQuery(
+                "SoftwareEngineer.name", String.class);
+        LOG.info("Engineers' name : " + findName.getResultList().toString());
+        
+        tx.commit();
+        
+        tx.begin();
+        TypedQuery<ProjectManager> findManagers = em.createNamedQuery(
+                "ProjectManager.fromBudapest", ProjectManager.class);
+        LOG.info("ProjectManagers from Budapest: " + findManagers.getResultList().toString());
         
         tx.commit();
         

@@ -50,5 +50,13 @@ public class Person implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
     
 }

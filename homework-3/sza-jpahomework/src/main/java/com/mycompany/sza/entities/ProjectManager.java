@@ -2,9 +2,12 @@ package com.mycompany.sza.entities;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(name="ProjectManager.fromBudapest",
+        query="SELECT p FROM ProjectManager p WHERE p.address.city ='Budapest'")
 public class ProjectManager extends Person {
     
     ProgrammingLanguage programmingLanguage;
@@ -31,4 +34,9 @@ public class ProjectManager extends Person {
         this.programmingLanguage = programmingLanguage;
     }
 
+    @Override
+    public String toString() {
+        return "ProjectManager{" + this.getName()+ ", programmingLanguage=" + programmingLanguage + ", projects=" + projects + '}';
+    }
+    
 }
