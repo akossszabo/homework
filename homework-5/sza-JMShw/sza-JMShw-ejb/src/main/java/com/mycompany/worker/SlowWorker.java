@@ -9,14 +9,10 @@ import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @MessageDriven(mappedName = "dzsobKju")
 public class SlowWorker implements MessageListener{
 
-    final static Logger LOGGER = LoggerFactory.getLogger(SlowWorker.class);
-    
     @Inject
     private StatisticsBean statBean;
     
