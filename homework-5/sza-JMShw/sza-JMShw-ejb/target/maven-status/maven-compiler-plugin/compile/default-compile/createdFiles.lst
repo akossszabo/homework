@@ -1,0 +1,8 @@
+com\mycompany\worker\FastWorker.class
+com\mycompany\dto\StatInfo.class
+com\mycompany\service\StatisticsBean.class
+com\mycompany\worker\SlowWorker.class
+com\mycompany\dto\MessageDTO.class
+com\mycompany\dto\JobDTO.class
+com\mycompany\worker\AverageWorker.class
+com\mycompany\service\JobScheduler.class
