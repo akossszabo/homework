@@ -31,7 +31,7 @@ public class JobScheduler {
     private JMSContext jmsc;
     
     @Inject
-    StatisticsBean statBean;
+    private StatisticsBean statBean;
     
     @Resource(lookup = "dzsobKju")
     private Queue queue;

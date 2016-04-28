@@ -18,7 +18,7 @@ public class AverageWorker implements MessageListener{
     final static Logger LOGGER = LoggerFactory.getLogger(AverageWorker.class);
     
     @Inject
-    StatisticsBean statBean;
+    private StatisticsBean statBean;
     
     @Override
     public void onMessage(Message message) {
@@ -27,11 +27,6 @@ public class AverageWorker implements MessageListener{
             Thread.sleep(job.getEstimatedTime()*1000);
             MessageDTO msg = new MessageDTO();
             msg.setJobTime(job.getEstimatedTime());
-            if(msg.getJobTime()<5){
-                msg.setDone(true);
-            }else if(msg.getJobTime()>=5){
-                msg.setDone(false);
-            }
             msg.setNumber(job.getNumber());
             msg.setTime(System.currentTimeMillis());
             statBean.finishJobs(msg);

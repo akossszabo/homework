@@ -24,8 +24,8 @@ public class StatisticsBean {
     ConcurrentMap<Integer, MessageDTO> jobs = new ConcurrentHashMap<>();
     List<StatInfo> statInfo = new ArrayList<>();
 
-    final static Logger LOGGER = LoggerFactory.getLogger(StatisticsBean.class);
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsBean.class);
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
     public void addJobs(JobDTO job, long startTime) {
         Date date = new Date(startTime);
@@ -35,12 +35,17 @@ public class StatisticsBean {
     public void finishJobs(MessageDTO msg) {
         StatInfo info = new StatInfo();
         info.setNumber(msg.getNumber());
+        if (msg.getJobTime() < 5) {
+            msg.setDone(true);
+        } else if (msg.getJobTime() >= 5) {
+            msg.setDone(false);
+        }
         if (msg.isDone()) {
             info.setSuccesful(true);
-            LOGGER.info(msg.getNumber()+". job was successful at " + sdf.format(msg.getTime()));
+            LOGGER.info(msg.getNumber() + ". job was successful at " + sdf.format(msg.getTime()));
         } else {
             info.setSuccesful(false);
-            LOGGER.info(msg.getNumber()+". job was unsuccessful at " + sdf.format(msg.getTime()));
+            LOGGER.info(msg.getNumber() + ". job was unsuccessful at " + sdf.format(msg.getTime()));
         }
         jobs.put(msg.getNumber(), msg);
         statInfo.add(info);

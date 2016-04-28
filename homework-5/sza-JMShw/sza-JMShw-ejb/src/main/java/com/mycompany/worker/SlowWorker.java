@@ -18,7 +18,7 @@ public class SlowWorker implements MessageListener{
     final static Logger LOGGER = LoggerFactory.getLogger(SlowWorker.class);
     
     @Inject
-    StatisticsBean statBean;
+    private StatisticsBean statBean;
     
     @Override
     public void onMessage(Message message) {
@@ -27,11 +27,6 @@ public class SlowWorker implements MessageListener{
             Thread.sleep(job.getEstimatedTime()*2*1000);
             MessageDTO msg = new MessageDTO();
             msg.setJobTime(job.getEstimatedTime()*2);
-            if(msg.getJobTime()<5){
-                msg.setDone(true);
-            }else if(msg.getJobTime()>=5){
-                msg.setDone(false);
-            }
             msg.setTime(System.currentTimeMillis());
             msg.setNumber(job.getNumber());
             statBean.finishJobs(msg);
